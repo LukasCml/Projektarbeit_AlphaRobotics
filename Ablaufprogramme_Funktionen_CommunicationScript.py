@@ -102,7 +102,7 @@ def running():
         writeRegister(4, 32767)
         return "TRUE"
     elif return_running_str == "false":
-        writeRegister(4, 10)
+        writeRegister(4, 1)
         return "FALSE"
 
 ############################################### RUNNING ENDE ###########################################################
@@ -118,25 +118,25 @@ def loadedprogram():
     return_sendgetProgram_str = return_sendgetProgram_str.rstrip("\\n'")
 
     if return_sendgetProgram_str == "/programs/3dmouse_move_normal.urp":
-        writeRegister(18, 0)
+        writeRegister(18, 6)
         return "3dmouse_move_normal"
     elif return_sendgetProgram_str == "/programs/engerGang.urp":
-        writeRegister(18, 1)
+        writeRegister(18, 5)
         return "engerGang"
     elif return_sendgetProgram_str == "/programs/geringeDeckenhoehe.urp":
-        writeRegister(18, 2)
+        writeRegister(18, 4)
         return "geringeDeckenhoehe"
     elif return_sendgetProgram_str == "/programs/geringeDeckenhoeheStart.urp":
         writeRegister(18, 3)
         return "geringeDeckenhoeheStart"
     elif return_sendgetProgram_str == "/programs/visuelleLagesondierung.urp":
-        writeRegister(18, 4)
+        writeRegister(18, 2)
         return "visuelleLagesondierung"
     elif return_sendgetProgram_str == "/programs/showfahrt.urp":
-        writeRegister(18, 5)
+        writeRegister(18, 1)
         return "showfahrt"
     elif return_sendgetProgram_str == "/programs/homefahrt.urp":
-        writeRegister(18, 6)
+        writeRegister(18, 0)
         return "homefahrt"
 
 ############################################# LOADED PROGRAM ENDE ######################################################
@@ -155,7 +155,7 @@ def programstate():
         writeRegister(11, 100)
         return "PLAYING"
     elif return_programState_str == "PAUSED":
-        writeRegister(11, 90)
+        writeRegister(11, 50)
         return "PAUSED"
     elif return_programState_str == "STOPPED":
         writeRegister(11, 1)
@@ -187,7 +187,7 @@ def safetystatus():
         return "RECOVERY"
     elif return_safetyStatus_str == "SAFEGUARD_STOP":
         writeRegister(1, 2047)
-        return "SAFEGUAD_STOP"
+        return "SAFEGUARD_STOP"
     elif return_safetyStatus_str == "SYSTEM_EMERGENCY_STOP":
         writeRegister(1, 1023)
         return "SYSTEM_EMERGENCY_STOP"
@@ -281,12 +281,13 @@ def startSequenz(programmName):
 
 ##################################### FUNKTIONEN FÜR EBENENERSTELLUNG ##################################################
 
-def xEbene1(x_grenze, x_zurueck, y_min, y_max, z_min, z_max, programm_nr):
+def xEbene1(x_grenze, x_zurueck, y_min, y_max, z_min, z_max, programm_nr, register_nr):
     programm_nr = str(programm_nr)
     act_pos = robot.get_pos()
     if act_pos[0] < x_grenze:                                   # Begrenzung X-Achse
         if act_pos[1] < y_min and act_pos[1] > y_max:           # Bereich Y-Achse
             if act_pos[2] < z_min and act_pos[2] > z_max:       # Bereich Z-Achse
+                writeRegister(20, register_nr)
                 rob_pos = robot.getl()
                 """ Bewege den Roboter in eine sichere X-Position """
                 robot.movel([x_zurueck, rob_pos[1], rob_pos[2], rob_pos[3], rob_pos[4], rob_pos[5]], acc=0.3, vel=0.5)
@@ -294,12 +295,13 @@ def xEbene1(x_grenze, x_zurueck, y_min, y_max, z_min, z_max, programm_nr):
                 return print("X-Achse Sicherheitsebene "+programm_nr+" wurde angefahren")
 
 
-def xEbene2(x_grenze, x_zurueck, y_min, y_max, z_min, z_max, programm_nr):
+def xEbene2(x_grenze, x_zurueck, y_min, y_max, z_min, z_max, programm_nr, register_nr):
     programm_nr = str(programm_nr)
     act_pos = robot.get_pos()
     if act_pos[0] > x_grenze:                                   # Begrenzung X-Achse
         if act_pos[1] < y_min and act_pos[1] > y_max:           # Bereich Y-Achse
             if act_pos[2] < z_min and act_pos[2] > z_max:       # Bereich Z-Achse
+                writeRegister(20, register_nr)
                 rob_pos = robot.getl()
                 """ Bewege den Roboter in eine sichere X-Position """
                 robot.movel([x_zurueck, rob_pos[1], rob_pos[2], rob_pos[3], rob_pos[4], rob_pos[5]], acc=0.3, vel=0.5)
@@ -307,12 +309,13 @@ def xEbene2(x_grenze, x_zurueck, y_min, y_max, z_min, z_max, programm_nr):
                 return print("X-Achse Sicherheitsebene "+programm_nr+" wurde angefahren")
 
 
-def yEbene(y_grenze, y_zurueck, x_min, x_max, z_min, z_max, programm_nr):
+def yEbene(y_grenze, y_zurueck, x_min, x_max, z_min, z_max, programm_nr, register_nr):
     programm_nr = str(programm_nr)
     act_pos = robot.get_pos()
     if act_pos[1] > y_grenze:                                   # Begrenzung Y-Achse
         if act_pos[0] < x_min and act_pos[0] > x_max:           # Bereich X-Achse
             if act_pos[2] < z_min and act_pos[2] > z_max:       # Bereich Z-Achse
+                writeRegister(20, register_nr)
                 rob_pos = robot.getl()
                 """ Bewege den Roboter in eine sichere Y-Position """
                 robot.movel([rob_pos[0], y_zurueck, rob_pos[2], rob_pos[3], rob_pos[4], rob_pos[5]], acc=0.3, vel=0.5)
@@ -320,12 +323,13 @@ def yEbene(y_grenze, y_zurueck, x_min, x_max, z_min, z_max, programm_nr):
                 return print("Y-Achse Sicherheitsebene "+programm_nr+" wurde angefahren")
 
 
-def zEbene1(z_grenze, z_zurueck, x_min, x_max, y_min, y_max, programm_nr):
+def zEbene1(z_grenze, z_zurueck, x_min, x_max, y_min, y_max, programm_nr, register_nr):
     programm_nr = str(programm_nr)
     act_pos = robot.get_pos()
     if act_pos[2] < z_grenze:                                   # Begrenzung Z-Achse
         if act_pos[0] < x_min and act_pos[0] > x_max:           # Bereich X-Achse
             if act_pos[1] < y_min and act_pos[1] > y_max:       # Bereich Y-Achse
+                writeRegister(20, register_nr)
                 rob_pos = robot.getl()
                 """ Bewege den Roboter in eine sichere Z-Position """
                 robot.movel([rob_pos[0], rob_pos[1], z_zurueck, rob_pos[3], rob_pos[4], rob_pos[5]], acc=0.3, vel=0.5)
@@ -333,12 +337,13 @@ def zEbene1(z_grenze, z_zurueck, x_min, x_max, y_min, y_max, programm_nr):
                 return print("Z-Achse Sicherheitsebene "+programm_nr+" wurde angefahren")
 
 
-def zEbene2(z_grenze, z_zurueck, x_min, x_max, y_min, y_max, programm_nr):
+def zEbene2(z_grenze, z_zurueck, x_min, x_max, y_min, y_max, programm_nr, register_nr):
     programm_nr = str(programm_nr)
     act_pos = robot.get_pos()
     if act_pos[2] > z_grenze:                                   # Begrenzung Z-Achse
         if act_pos[0] < x_min and act_pos[0] > x_max:           # Bereich X-Achse
             if act_pos[1] < y_min and act_pos[1] > y_max:       # Bereich Y-Achse
+                writeRegister(20, register_nr)
                 rob_pos = robot.getl()
                 """ Bewege den Roboter in eine sichere Z-Position """
                 robot.movel([rob_pos[0], rob_pos[1], z_zurueck, rob_pos[3], rob_pos[4], rob_pos[5]], acc=0.3, vel=0.5)
@@ -346,10 +351,11 @@ def zEbene2(z_grenze, z_zurueck, x_min, x_max, y_min, y_max, programm_nr):
                 return print("Z-Achse Sicherheitsebene "+programm_nr+" wurde angefahren")
 
 
-def basisGelenkgrenze1(basis_grenze, basis_zurueck, programm_nr):
+def basisGelenkgrenze1(basis_grenze, basis_zurueck, programm_nr, register_nr):
     programm_nr = str(programm_nr)
     act_joint_pos = robot.getj()
     if act_joint_pos[0] > basis_grenze:
+        writeRegister(22, register_nr)
         rob_joint_pos = robot.getj()
         """ Bewege den Robter in eine sichere Basis Position """
         robot.movej([basis_zurueck, rob_joint_pos[1], rob_joint_pos[2], rob_joint_pos[3], rob_joint_pos[4], rob_joint_pos[5]], acc=0.3, vel=0.5)
@@ -357,10 +363,11 @@ def basisGelenkgrenze1(basis_grenze, basis_zurueck, programm_nr):
         return print("Basis Gelenkgrenze "+programm_nr+" wurde angefahren")
 
 
-def basisGelenkgrenze2(basis_grenze, basis_zurueck, programm_nr):
+def basisGelenkgrenze2(basis_grenze, basis_zurueck, programm_nr, register_nr):
     programm_nr = str(programm_nr)
     act_joint_pos = robot.getj()
     if act_joint_pos[0] < basis_grenze:
+        writeRegister(22, register_nr)
         rob_joint_pos = robot.getj()
         """ Bewege den Robter in eine sichere Basis Position """
         robot.movej([basis_zurueck, rob_joint_pos[1], rob_joint_pos[2], rob_joint_pos[3], rob_joint_pos[4], rob_joint_pos[5]], acc=0.3, vel=0.5)
@@ -368,11 +375,12 @@ def basisGelenkgrenze2(basis_grenze, basis_zurueck, programm_nr):
         return print("Basis Gelenkgrenze "+programm_nr+" wurde angefahren")
 
 
-def schulterGelenkgrenze1(schulter_grenze, schulter_zurueck, basis_min, basis_max, programm_nr):
+def schulterGelenkgrenze1(schulter_grenze, schulter_zurueck, basis_min, basis_max, programm_nr, register_nr):
     programm_nr = str(programm_nr)
     act_joint_pos = robot.getj()
     if act_joint_pos[0] > basis_min and act_joint_pos[0] < basis_max:
         if act_joint_pos[1] > schulter_grenze:
+            writeRegister(22, register_nr)
             rob_joint_pos = robot.getj()
             """ Bewege den Roboter in eine sichere Schulter Position """
             robot.movej([rob_joint_pos[0], schulter_zurueck, rob_joint_pos[2], rob_joint_pos[3], rob_joint_pos[4], rob_joint_pos[5]], acc=0.3, vel=0.5)
@@ -383,11 +391,12 @@ def schulterGelenkgrenze1(schulter_grenze, schulter_zurueck, basis_min, basis_ma
 
 ################################################### GELENKGRENZEN ######################################################
 
-def schulterGelenkgrenze2(schulter_grenze, schulter_zurueck, ellbogen_zurueck, basis_min, basis_max, programm_nr):
+def schulterGelenkgrenze2(schulter_grenze, schulter_zurueck, ellbogen_zurueck, basis_min, basis_max, programm_nr, register_nr):
     programm_nr = str(programm_nr)
     act_joint_pos = robot.getj()
     if act_joint_pos[0] > basis_min and act_joint_pos[0] < basis_max:
         if act_joint_pos[1] < schulter_grenze:
+            writeRegister(22, register_nr)
             rob_joint_pos = robot.getj()
             """ Bewege den Roboter in eine sichere Schulter Position """
             robot.movej([rob_joint_pos[0], schulter_zurueck, ellbogen_zurueck, rob_joint_pos[3], rob_joint_pos[4], rob_joint_pos[5]], acc=0.3, vel=0.5)
@@ -395,10 +404,11 @@ def schulterGelenkgrenze2(schulter_grenze, schulter_zurueck, ellbogen_zurueck, b
             return print("Schulter Gelenkgrenze "+programm_nr+" wurde angefahren")
 
 
-def ellbogenGelenkgrenze(ellbogen_grenze, ellbogen_zurueck, programm_nr):
+def ellbogenGelenkgrenze(ellbogen_grenze, ellbogen_zurueck, programm_nr, register_nr):
     programm_nr = str(programm_nr)
     act_joint_pos = robot.getj()
     if act_joint_pos[2] < ellbogen_grenze:
+        writeRegister(22, register_nr)
         rob_joint_pos = robot.getj()
         """ Bewege den Roboter in eine sichere Ellbogen Position """
         robot.movej([rob_joint_pos[0], rob_joint_pos[1], ellbogen_zurueck, rob_joint_pos[3], rob_joint_pos[4], rob_joint_pos[5]], acc=0.3, vel=0.5)
