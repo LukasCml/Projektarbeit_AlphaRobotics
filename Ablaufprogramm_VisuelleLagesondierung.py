@@ -13,7 +13,7 @@ ipRobot = "172.17.13.30"
 s = socket(AF_INET, SOCK_STREAM)
 s.connect((ipRobot, portRobot))
 robot = urx.Robot("172.17.13.30")
-sendPlay = """play""" + "\n"
+sendPlay = "play" + "\n"
 
 def datenAuslesen():
 

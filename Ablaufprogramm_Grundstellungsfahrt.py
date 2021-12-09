@@ -16,7 +16,7 @@ s.connect((ipRobot, portRobot))
 if __name__ == "__main__":
 
     grundstellung_erreicht = False
-    sendStop = """stop""" + "\n"
+    sendStop = "stop" + "\n"
     robotmode()
     running()
     loadedprogram()

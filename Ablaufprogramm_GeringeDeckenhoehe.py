@@ -13,7 +13,7 @@ ipRobot = "172.17.13.30"
 s = socket(AF_INET, SOCK_STREAM)
 s.connect((ipRobot, portRobot))
 robot = urx.Robot("172.17.13.30")
-sendPlay = """play""" + "\n"
+sendPlay = "play" + "\n"
 
 
 def datenAuslesen():
@@ -35,6 +35,7 @@ def main():
         robot.movej([1.48, -0.698, 0.942, -3.089, -1.57, 3.14], acc=0.3, vel=1)
         startSequenz('geringeDeckenhoehe')
         count = count + 1
+        writeRegister(20, 0)
         s.send(sendPlay.encode())
 
     while True:
@@ -54,7 +55,7 @@ def main():
         ### Ebene 2 ### (>)
         yEbene(0.1, 0.099, 1.5, -1.5, 1.5, -0.58, '2', 2047)
 
-        """ Z-Ebene """
+        """ Z-Ebenen """
         ### Ebene 1 ### (<)
         zEbene1(0.327, 0.328, 0.240, -0.228, 0.110, -0.550, '1', 1023)
 

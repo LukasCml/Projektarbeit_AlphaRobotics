@@ -292,6 +292,7 @@ def xEbene1(x_grenze, x_zurueck, y_min, y_max, z_min, z_max, programm_nr, regist
                 """ Bewege den Roboter in eine sichere X-Position """
                 robot.movel([x_zurueck, rob_pos[1], rob_pos[2], rob_pos[3], rob_pos[4], rob_pos[5]], acc=0.3, vel=0.5)
                 s.send(sendPlay.encode())
+                writeRegister(20, 0)
                 return print("X-Achse Sicherheitsebene "+programm_nr+" wurde angefahren")
 
 
@@ -306,6 +307,7 @@ def xEbene2(x_grenze, x_zurueck, y_min, y_max, z_min, z_max, programm_nr, regist
                 """ Bewege den Roboter in eine sichere X-Position """
                 robot.movel([x_zurueck, rob_pos[1], rob_pos[2], rob_pos[3], rob_pos[4], rob_pos[5]], acc=0.3, vel=0.5)
                 s.send(sendPlay.encode())
+                writeRegister(20, 0)
                 return print("X-Achse Sicherheitsebene "+programm_nr+" wurde angefahren")
 
 
@@ -320,6 +322,7 @@ def yEbene(y_grenze, y_zurueck, x_min, x_max, z_min, z_max, programm_nr, registe
                 """ Bewege den Roboter in eine sichere Y-Position """
                 robot.movel([rob_pos[0], y_zurueck, rob_pos[2], rob_pos[3], rob_pos[4], rob_pos[5]], acc=0.3, vel=0.5)
                 s.send(sendPlay.encode())
+                writeRegister(20, 0)
                 return print("Y-Achse Sicherheitsebene "+programm_nr+" wurde angefahren")
 
 
@@ -334,6 +337,7 @@ def zEbene1(z_grenze, z_zurueck, x_min, x_max, y_min, y_max, programm_nr, regist
                 """ Bewege den Roboter in eine sichere Z-Position """
                 robot.movel([rob_pos[0], rob_pos[1], z_zurueck, rob_pos[3], rob_pos[4], rob_pos[5]], acc=0.3, vel=0.5)
                 s.send(sendPlay.encode())
+                writeRegister(20, 0)
                 return print("Z-Achse Sicherheitsebene "+programm_nr+" wurde angefahren")
 
 
@@ -348,6 +352,7 @@ def zEbene2(z_grenze, z_zurueck, x_min, x_max, y_min, y_max, programm_nr, regist
                 """ Bewege den Roboter in eine sichere Z-Position """
                 robot.movel([rob_pos[0], rob_pos[1], z_zurueck, rob_pos[3], rob_pos[4], rob_pos[5]], acc=0.3, vel=0.5)
                 s.send(sendPlay.encode())
+                writeRegister(20, 0)
                 return print("Z-Achse Sicherheitsebene "+programm_nr+" wurde angefahren")
 
 
@@ -360,6 +365,7 @@ def basisGelenkgrenze1(basis_grenze, basis_zurueck, programm_nr, register_nr):
         """ Bewege den Robter in eine sichere Basis Position """
         robot.movej([basis_zurueck, rob_joint_pos[1], rob_joint_pos[2], rob_joint_pos[3], rob_joint_pos[4], rob_joint_pos[5]], acc=0.3, vel=0.5)
         s.send(sendPlay.encode())
+        writeRegister(20, 0)
         return print("Basis Gelenkgrenze "+programm_nr+" wurde angefahren")
 
 
@@ -372,6 +378,7 @@ def basisGelenkgrenze2(basis_grenze, basis_zurueck, programm_nr, register_nr):
         """ Bewege den Robter in eine sichere Basis Position """
         robot.movej([basis_zurueck, rob_joint_pos[1], rob_joint_pos[2], rob_joint_pos[3], rob_joint_pos[4], rob_joint_pos[5]], acc=0.3, vel=0.5)
         s.send(sendPlay.encode())
+        writeRegister(20, 0)
         return print("Basis Gelenkgrenze "+programm_nr+" wurde angefahren")
 
 
@@ -385,6 +392,7 @@ def schulterGelenkgrenze1(schulter_grenze, schulter_zurueck, basis_min, basis_ma
             """ Bewege den Roboter in eine sichere Schulter Position """
             robot.movej([rob_joint_pos[0], schulter_zurueck, rob_joint_pos[2], rob_joint_pos[3], rob_joint_pos[4], rob_joint_pos[5]], acc=0.3, vel=0.5)
             s.send(sendPlay.encode())
+            writeRegister(20, 0)
             return print("Schulter Gelenkgrenze "+programm_nr+" wurde angefahren")
 
 ############################################### EBENENERSTELLUNG ENDE ##################################################
@@ -401,6 +409,7 @@ def schulterGelenkgrenze2(schulter_grenze, schulter_zurueck, ellbogen_zurueck, b
             """ Bewege den Roboter in eine sichere Schulter Position """
             robot.movej([rob_joint_pos[0], schulter_zurueck, ellbogen_zurueck, rob_joint_pos[3], rob_joint_pos[4], rob_joint_pos[5]], acc=0.3, vel=0.5)
             s.send(sendPlay.encode())
+            writeRegister(20, 0)
             return print("Schulter Gelenkgrenze "+programm_nr+" wurde angefahren")
 
 
@@ -413,6 +422,7 @@ def ellbogenGelenkgrenze(ellbogen_grenze, ellbogen_zurueck, programm_nr, registe
         """ Bewege den Roboter in eine sichere Ellbogen Position """
         robot.movej([rob_joint_pos[0], rob_joint_pos[1], ellbogen_zurueck, rob_joint_pos[3], rob_joint_pos[4], rob_joint_pos[5]], acc=0.3, vel=0.5)
         s.send(sendPlay.encode())
+        writeRegister(20, 0)
         return print("Ellbogen Gelenkgrenze "+programm_nr+" wurde angefahren")
 
 ########################################### GELENKGRENZEN ENDE #########################################################
