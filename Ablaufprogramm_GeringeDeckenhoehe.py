@@ -1,7 +1,7 @@
 """
 Funktion:     Ablaufprogramm Geringe Deckenhoehe
 Ersteller:    Lukas Camehl, Bernd Rensen, Jannik Birk
-Datum:        06. Dezemeber 2021
+Datum:        10. Dezemeber 2021
 Version:      Version 2.2
 """
 
@@ -27,7 +27,7 @@ def datenAuslesen():
 
 def main():
 
-    #start3DMouse('C:\Python_Programme\Roboter-Manipulatorarm-Ablaufprogramme\Maus-GeringeDeckenhoehe', '3D_Mouse_Move.exe')
+    start3DMouse('C:\Python_Programme\Roboter-Manipulatorarm-Ablaufprogramme\Maus-GeringeDeckenhoehe', '3D_Mouse_Move.exe')
     startSequenz('geringeDeckenhoeheStart')
 
     count = 0
@@ -36,6 +36,7 @@ def main():
         startSequenz('geringeDeckenhoehe')
         count = count + 1
         writeRegister(20, 0)
+        writeRegister(30, 1)
         s.send(sendPlay.encode())
 
     while True:
@@ -85,7 +86,7 @@ def main():
         schulterGelenkgrenze1(0.1, 0.099, 0, 0.785, '2', 4095)
 
         ### Schulter Gelenkgrenze 3 ### (<)
-        schulterGelenkgrenze2(-1.04, -1.03, 1.22, 1.3, 1.57, '3', 2047)
+        #schulterGelenkgrenze2(-1.04, -1.03, 1.22, 1.3, 1.57, '3', 2047)
 
         """ Ellbogen """
         ### Ellbogen Gelenkgrenze 1 ### (<)

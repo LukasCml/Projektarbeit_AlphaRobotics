@@ -1,8 +1,8 @@
 """
 Funktion:     Ablaufprogramm Visuelle Lagesondierung
 Ersteller:    Lukas Camehl, Bernd Rensen, Jannik Birk
-Datum:        01. Dezember 2021
-Version:      Version 1.0
+Datum:        10. Dezember 2021
+Version:      Version 1.4
 """
 
 from Ablaufprogramme_Funktionen_CommunicationScript import *
@@ -27,6 +27,7 @@ def datenAuslesen():
 def main():
 
     startSequenz('visuelleLagesondierung')
+    writeRegister(30, 1)
     startStop()
 
 if __name__ == "__main__":
@@ -38,8 +39,6 @@ if __name__ == "__main__":
         s.send(sendStop.encode())
         print("Es ist ein Fehler aufgetreten")
 
-    finally:
-        s.send(sendStop.encode())
 
 
 

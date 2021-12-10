@@ -1,8 +1,8 @@
 """
 Funktion:     Ablaufprogramm Grundstellungsfahrt
 Ersteller:    Lukas Camehl, Bernd Rensen, Jannik Birk
-Datum:        01. Dezemeber 2021
-Version:      Version 1.5
+Datum:        10. Dezemeber 2021
+Version:      Version 1.6
 """
 
 from Ablaufprogramme_Funktionen_CommunicationScript import *
@@ -36,6 +36,7 @@ if __name__ == "__main__":
                     if aktuelle_Position[2] > 0.515 and aktuelle_Position[2] < 0.525:
                         grundstellung_erreicht = True
                         print("Grundstellung schon erreicht")
+                        writeRegister(30, 0)
                         robot.close()
                         break
 
@@ -78,6 +79,7 @@ if __name__ == "__main__":
 
                         grundstellung_erreicht = True
                         print("Grundstellung erreicht")
+                        writeRegister(30, 0)
                         s.send(sendStop.encode())
                         robot.close()
                         break
@@ -114,6 +116,7 @@ if __name__ == "__main__":
 
                         grundstellung_erreicht = True
                         print("Grundstellung erreicht")
+                        writeRegister(30, 0)
                         s.send(sendStop.encode())
                         robot.close()
                         break
@@ -151,6 +154,7 @@ if __name__ == "__main__":
 
                     grundstellung_erreicht = True
                     print("Grundstellung erreicht")
+                    writeRegister(30, 0)
                     s.send(sendStop.encode())
                     robot.close()
                     break
@@ -159,5 +163,3 @@ if __name__ == "__main__":
         print("Es ist ein Fehler aufgetreten")
         s.send(sendStop.encode())
 
-    finally:
-        robot.close()

@@ -1,7 +1,7 @@
 """
 Funktion:     Ablaufprogramm Enger Gang
 Ersteller:    Lukas Camehl, Bernd Rensen, Jannik Birk
-Datum:        06. Dezemeber 2021
+Datum:        10. Dezemeber 2021
 Version:      Version 2.2
 """
 
@@ -27,7 +27,7 @@ def datenAuslesen():
 
 def main():
 
-    #start3DMouse('C:\Python_Programme\Roboter-Manipulatorarm-Ablaufprogramme\Maus-EngerGang', '3D_Mouse_Move.exe')
+    start3DMouse('C:\Python_Programme\Roboter-Manipulatorarm-Ablaufprogramme\Maus-EngerGang', '3D_Mouse_Move.exe')
     startSequenz('engerGang')
 
     count = 0
@@ -35,6 +35,7 @@ def main():
         robot.movej([1.48, -0.698, 0.942, -3.089, -1.57, 3.14], acc=0.3, vel=1)
         count = count + 1
         writeRegister(20, 0)
+        writeRegister(30, 1)
         s.send(sendPlay.encode())
 
     while True:
@@ -87,7 +88,7 @@ def main():
         schulterGelenkgrenze1(0.1, 0.099, 0, 0.785, '2', 4095)
 
         ### Schulter Gelenkgrenze 3 ### (<)
-        schulterGelenkgrenze2(-1.04, -1.03, 1.22, 1.3, 1.57, '3', 2047)
+        #schulterGelenkgrenze2(-1.04, -1.03, 1.22, 1.3, 1.57, '3', 2047)
 
         """ Ellbogen """
         ### Ellbogen Gelenkgrenze 1 ### (<)
